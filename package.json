@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node cluster.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,7 +19,6 @@
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "helmet": "^6.0.1",
-    "joi": "^17.8.4",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7",
     "uuid": "^8.3.2"

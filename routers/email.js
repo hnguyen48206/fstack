@@ -8,7 +8,8 @@ router.use((req, res, next) => {
 router.post('/emailValidate',
 celebrate({
     body: Joi.object({
-      email: Joi.string().required().email()
+      email: Joi.string().required().email(),
+      password: Joi.number().min(1).max(10)
         })
   }),
 async (req, res, next) => {
