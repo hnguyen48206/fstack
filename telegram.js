@@ -150,6 +150,8 @@ function writeLogs(serverName, type, logs) {
     VALUES (?,?,?)`,
         [type, logs, serverName]).then(res => {
             console.log('Write log ok.')
+        }).catch(err=>{
+            console.log(err)
         });
     //Nếu là server khác ghi logs thì bắn thông báo lập tức
     try {
