@@ -27,10 +27,15 @@ async function initTele() {
             }, process.env.AUTO_CHECK_INTERVAL);
 
             //Set up cron to clear logs data
-            cron.schedule(`0 0 */${process.env.AUTO_LOGS_CLEANING_INTERVAL != null ? process.env.AUTO_LOGS_CLEANING_INTERVAL : 3} * *`, function () {
-                console.log('running a task every xxx days');
-                clearLogsAll();
-            });
+            try {
+                cron.schedule(`0 0 */${process.env.AUTO_LOGS_CLEANING_INTERVAL != null ? process.env.AUTO_LOGS_CLEANING_INTERVAL : 3} * *`, function () {
+                    console.log('running a task every xxx days');
+                    clearLogsAll();
+                });
+            } catch (error) {
+                console.log(error)
+            }
+
 
             //at this time, bot is live. So we can run cronjobs to get system status periodically
             inform_interval = setInterval(() => {
@@ -354,12 +359,13 @@ async function send_logs_periodically() {
         ])
     if (currentDiskstatus != '' && currentDockerStatus != '' && currentSystemStatus != '')
         global.listOfClients.forEach(clientID => {
+            console.log(clientID)
             sendLargeMessage(clientID, currentDiskstatus);
             sendLargeMessage(clientID, currentSystemStatus);
             sendLargeMessage(clientID, currentDockerStatus);
         });
-    // else
-    //     sendLargeMessage(clientID, botErrMessage);
+    else
+        console.log('No saved system info')
     cleanMessage();
 }
 function get_all(clientID, isSend) {
